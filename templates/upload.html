@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="">
+ <head>
+   <title>Upload Image</title>
+ </head>
+ <body>
+
+   {% if msg %}
+   <h1>{{ msg }}</h1>
+   {% endif %}
+<hr>
+   <h3>  <a href=train >Train</a></h3>
+
+   <h1>Please Upload Your Invoice</h1>
+
+   <form method=post enctype=multipart/form-data>
+     <p><input type=file name=file id="fileInput" onchange="previewImage()">
+         <img id="preview" src="" alt=" " style="object-fit:cover;
+            width:200px;
+            height:300px;
+            border: solid 1px #CCC"/>
+         Invoice Template: <input type=text name="templatefilename">
+
+
+         <br>
+         <br>
+         <br>
+        <input type=submit value=Upload>
+   </form>
+   <hr>
+   <h1>Result:</h1>
+   {% if img_src %}
+     <img src="{{ img_src }}">
+   {% endif %}
+
+   {% if extracted_text %}
+     <p> The extracted text from the image above is: <b> {{ extracted_text }} </b></p>
+
+   {% else %}
+     The extracted text will be displayed here
+   {% endif %}
+ </body>
+
+
+<script>
+function previewImage() {
+  var preview = document.getElementById('preview');
+  var file    = document.getElementById('fileInput').files[0];
+  var reader  = new FileReader();
+  reader.onloadend = function () {
+    preview.src = reader.result;
+  }
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    preview.src = "";
+  }
+}
+</script>
+</html>

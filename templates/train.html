@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <title>Upload Image</title>
+ </head>
+
+   <h3> <a href=upload >Extract</a></h3>
+
+ <body>
+
+   {% if msg %}
+   <h1>{{ msg }}</h1>
+   {% endif %}
+<hr>
+<h1>Result:</h1>
+   {% if img_src %}
+     <img src="{{ img_src }}">
+   {% endif %}
+
+
+
+<hr>
+   <h1>Train your Invoice</h1>
+
+   <form method=post enctype=multipart/form-data>
+     <p><input type=file name=file id="fileInput" onchange="previewImage()">
+         <img id="preview" src="" alt=" " style="object-fit:cover;
+            width:200px;
+            height:300px;
+            border: solid 1px #CCC"/>
+       <h3>Provide Anchor</h3>
+        Invoice Number Anchor: <input type=text name="regex1" required>
+        Vendor Name Anchor: <input type=text name="regex2">
+        Invoice Date Anchor: <input type=text name="regex3">
+        Invoice Bill Anchor: <input type=text name="regex4">
+        Template Name: <input type=text name="templatename" required>
+<br>
+       <br>
+        <hr>
+
+
+
+
+       <div id="dynamicCheck">
+   <input type="button" value="New Anchor (Optional)" onclick="createNewElement();"/>
+      </div>
+
+       <div style="float: left; margin: 40px ;" id="newElementId1">Anchor Name:</div>
+       <div style="float: left; margin: 40px ;" id="newElementId2">Anchor</div>
+
+
+       <script type="text/JavaScript">
+function createNewElement() {
+    // First create a DIV element.
+	var txtNewInputBox1 = document.createElement('div');
+	var txtNewInputBox2= document.createElement('div');
+
+
+    // Then add the content (a new input box) of the element.
+	txtNewInputBox1.innerHTML = "<input type='text' id='newInputBox1' name='regex5[]'>";
+	txtNewInputBox2.innerHTML = "<input type='text' id='newInputBox2' name='regex6[]'>";
+
+
+    // Finally put it where it is supposed to appear.
+	document.getElementById("newElementId1").appendChild(txtNewInputBox1);
+	document.getElementById("newElementId2").appendChild(txtNewInputBox2);
+
+}
+</script>
+
+
+         <br>
+         <br>
+         <br>
+        <input type=submit value=Upload>
+
+   </form>
+
+ </body>
+
+<script>
+function previewImage() {
+  var preview = document.getElementById('preview');
+  var file    = document.getElementById('fileInput').files[0];
+  var reader  = new FileReader();
+  reader.onloadend = function () {
+    preview.src = reader.result;
+  }
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    preview.src = "";
+  }
+}
+</script>
+
+
+
+</html>
